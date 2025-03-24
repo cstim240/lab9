@@ -103,13 +103,12 @@ int main() {
       handle_error("accept");
     }
 
-    // assign a unique client ID
+    //assign a unique client ID
     pthread_mutex_lock(&client_id_mutex);
     client->client_id = client_id_counter++;
     pthread_mutex_unlock(&client_id_mutex);
-
-    printf("New client created! ID %d on socket FD %d\n", client->client_id,
-           client->cfd);
+    
+    printf("New client created! ID %d on socket FD %d\n", client->client_id, client->client_cfd);
 
     pthread_t tid;
     if (pthread_create(&tid, NULL, handle_client, client) != 0) {
@@ -117,7 +116,7 @@ int main() {
       handle_error("pthread_create");
     }
 
-    pthread_detach(tid); // detach thread to clean up resources
+    pthread_detach(tid); //detach thread to clean up resources
   }
 
   if (close(sfd) == -1) {

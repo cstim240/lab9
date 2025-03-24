@@ -19,7 +19,7 @@
 Questions to answer at top of client.c:
 (You should not need to change the code in client.c)
 1. What is the address of the server it is trying to connect to (IP address and
-port number).
+port number). 
 The IP address of the server this client is trying to connect to
 is 127.0.0.1, also known as the local host or home IP address (the machine I'm
 currently on). The port number is 8000.

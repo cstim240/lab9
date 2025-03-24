@@ -96,28 +96,11 @@ int main() {
     if (client == NULL) {
       handle_error("malloc");
     }
-
     client->cfd = accept(sfd, NULL, NULL);
-    if (client->cfd == -1) {
-      free(client);
-      handle_error("accept");
-    }
+    // TODO: create a new thread when a new connection is encountered
 
-    // assign a unique client ID
-    pthread_mutex_lock(&client_id_mutex);
-    client->client_id = client_id_counter++;
-    pthread_mutex_unlock(&client_id_mutex);
-
-    printf("New client created! ID %d on socket FD %d\n", client->client_id,
-           client->cfd);
-
-    pthread_t tid;
-    if (pthread_create(&tid, NULL, handle_client, client) != 0) {
-      free(client);
-      handle_error("pthread_create");
-    }
-
-    pthread_detach(tid); // detach thread to clean up resources
+    // TODO: call handle_client() when launching a new thread, and provide
+    // client_info
   }
 
   if (close(sfd) == -1) {
